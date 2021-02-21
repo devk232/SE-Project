@@ -1,0 +1,25 @@
+{
+  "name": "se-project",
+  "version": "1.0.0",
+  "description": "SE Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start",
+    "dev": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devk232/SE-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devk232/SE-Project/issues"
+  },
+  "homepage": "https://github.com/devk232/SE-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.1.1",
+    "uuid": "^8.3.2"
+  }
+}
