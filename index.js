@@ -1,10 +1,9 @@
 const express = require('express');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
+const config = require("config");
+const cookieParser  = require("cookie-parser")
 const cors = require('cors');
-const passport = require('passport');
-const passportLocal = require('passport-local');
-const http = require('http');
 const users = require('./routes/users');
 const app = express();
 
@@ -29,8 +28,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
-const PORT = process.env.PORT || 8080;
+
+
+app.use('/', users);
+
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log(`listening on port {POST}` );
+  console.log(`listening on port ${PORT}` );
 });
