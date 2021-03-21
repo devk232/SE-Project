@@ -7,6 +7,7 @@ const cors = require('cors');
 const users = require('./routes/users');
 const app = express();
 
+
 if (!config.get("jwtPrivateKey")) {
   console.log("FATAL ERROR: JwtPrivateKey not defined");
   process.exit(1);

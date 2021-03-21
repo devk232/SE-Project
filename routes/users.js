@@ -51,4 +51,10 @@ router.post("/login", async (req, res) => {
   res.header("x-auth-token").send(token);
 });
 
+router.post('/meet', async(req, res)=>{
+      
+       //yhan kuch likhna hain aur
+       
+});
+
 module.exports = router;
