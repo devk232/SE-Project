@@ -13,6 +13,15 @@ const roomSchema = new mongoose.Schema({
   content:{
        type:String, 
        required:true
+  }, 
+  creater:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User',
+  },
+  members:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'User',
+    defualt:[],
   }
  
 });
