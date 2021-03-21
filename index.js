@@ -5,6 +5,7 @@ const config = require("config");
 const cookieParser  = require("cookie-parser")
 const cors = require('cors');
 const users = require('./routes/users');
+const rooms=require('./routes/rooms');
 const app = express();
 
 
@@ -32,6 +33,7 @@ app.use(cors());
 
 
 app.use('/users', users);
+app.use('/room', rooms );
 
 const PORT = process.env.PORT || 4000;
 

@@ -6,6 +6,7 @@ const config = require("config");
 const _ = require("lodash");
 const Joi = require("joi");
 const { User, validates, validateUser } = require("../models/user");
+const {Room}=require('../models/room');
 const { valid } = require("joi");
 const router = express.Router();
 
@@ -49,12 +50,6 @@ router.post("/login", async (req, res) => {
     config.get("jwtPrivateKey")
   );
   res.header("x-auth-token").send(token);
-});
-
-router.post('/meet', async(req, res)=>{
-      
-       //yhan kuch likhna hain aur
-       
 });
 
 module.exports = router;
