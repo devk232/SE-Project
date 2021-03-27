@@ -13,8 +13,8 @@ if (!config.get("jwtPrivateKey")) {
   console.log("FATAL ERROR: JwtPrivateKey not defined");
   process.exit(1);
 }
-
 let mongoDB = "mongodb://127.0.0.1/SEdatabase";
+
 
 mongoose
   .connect(mongoDB, {

@@ -2,30 +2,31 @@ const express = require("express");
 
 const mongoose = require("mongoose");
 const config = require("config");
-
+const auth = require("../middleware/auth");
 const { Room } = require("../models/room");
-const { valid } = require("joi");
+const { Joi } = require("joi");
 const { response } = require("express");
-const { User } = require("../models/user");
 const router = express.Router();
+const { User, validates, validateUser } = require("../models/user");
 
-router.post("/", async (req, res) => {
-  const room = req.body.name;
-  const content = req.body.content;
-  
-  //here we need to pass the authencate user who are creater
-const creater=User.find()
-  .then(users=>res.json(users))
-  .catch(err=>res.status(400).json('Error:'+err));
- 
-  const newRoom = new Room({ name:room,creater:creater[0], content:content });
-  console.log(newRoom);
-
-  await newRoom
-    .save()
-    .then(() => res.json("Room Created"))
-    .catch((err) => res.status(400).json('Error:' +err));
+router.post("/", auth, async (req, res) => {
+  const { errors } = validateUser(req.body);
+  if (errors) return res.status(400).json({  });
+   const {name, content, member}=req.body;
+    console.log(req.user._id);
+  try {
+    const newRoom = new Room({
+      name,
+      content,
+      member,
+      user: req.user._id
+    });
+    const room = await newRoom.save();
+    res.json(room);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
-
-module.exports=router;
+module.exports = router;
