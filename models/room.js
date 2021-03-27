@@ -17,12 +17,12 @@ const roomSchema =  mongoose.Schema({
     type: String,
     required: true,
   },
-
-  members: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "User",
-    defualt: [],
-  }
+    members:[
+      {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Members"
+      }
+    ]
 });
 const Room = mongoose.model("Room", roomSchema);
 exports.Room = Room;
