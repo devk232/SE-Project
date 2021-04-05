@@ -22,7 +22,7 @@ import {Link, NavLink} from 'react-router-dom';
 
 const MainPage = ({user}) => {
   return (
-    <NavBar></NavBar>
+    <NavBar />
   );
 };
 

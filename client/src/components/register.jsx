@@ -1,19 +1,18 @@
 import * as React from "react";
 import { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Input from "./common/input";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  Checkbox,
+  Link,
+  Paper,
+  Grid,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import Form from "./common/form";
 
 const styles = (theme) => ({
@@ -49,11 +48,19 @@ const styles = (theme) => ({
   },
 });
 
-class Login extends Form {
+class Register extends Form {
   state = {
-    searchNodes: "",
+    data: { name: "", email: "", password: "", password2: "" },
+    showPassword: false,
+  };
+  handleShowPassword = () => {
+    let { showPassword } = this.state;
+    showPassword = !showPassword;
+    this.setState({ showPassword: showPassword });
+    console.log("fsda", showPassword);
   };
   render() {
+    const { data, showPassword } = this.state;
     const { classes } = this.props;
     return (
       <Grid container component="main" className={classes.root}>
@@ -65,49 +72,32 @@ class Login extends Form {
               Register
             </Typography>
             <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Full Name"
+              <Input
                 name="name"
-                autoComplete="name"
-                autoFocus
+                label="Name"
+                value={data.name}
+                handleChange={this.handleChange}
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+              <Input
                 name="email"
-                autoComplete="email"
-                autoFocus
+                label="Email Address"
+                value={data.email}
+                handleChange={this.handleChange}
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+              <Input
                 name="password"
                 label="Password"
+                value={data.password}
+                handleChange={this.handleChange}
+                handleShowPassword={this.handleShowPassword}
                 type="password"
-                id="password"
-                autoComplete="current-password"
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+              <Input
                 name="password2"
                 label="Confirm Password"
-                type="password2"
-                id="password2"
-                autoComplete="current-password"
+                value={data.password2}
+                handleChange={this.handleChange}
+                type="password"
               />
               <Button
                 type="submit"
@@ -133,4 +123,4 @@ class Login extends Form {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Login);
+export default withStyles(styles, { withTheme: true })(Register);

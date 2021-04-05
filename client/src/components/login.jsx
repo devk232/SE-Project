@@ -1,21 +1,19 @@
-import * as React from "react";
+import React from "react";
 import { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Input from "./common/input";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  Checkbox,
+  Link,
+  Paper,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import Form from "./common/form";
-
 
 const styles = (theme) => ({
   root: {
@@ -52,47 +50,59 @@ const styles = (theme) => ({
 
 class Login extends Form {
   state = {
-    searchNodes: "",
+    data: { email: "", password: "" },
+    showPassword: false,
+  };
+  handleShowPassword = () => {
+    let { showPassword } = this.state;
+    showPassword = !showPassword;
+    this.setState({ showPassword: showPassword });
+    console.log("fsda", showPassword);
+  };
+  doSubmit = () => {
+    console.log("fads");
   };
   render() {
     const { classes } = this.props;
+    const { data, showPassword } = this.state;
+    console.log(showPassword);
     return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+            <form
+              className={classes.form}
+              noValidate
+              onSubmit={this.handleSubmit}
+            >
+              <Input
                 name="email"
-                autoComplete="email"
-                autoFocus
+                label="Email Address"
+                handleChange={this.handleChange}
+                value={data.email}
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+              <Input
                 name="password"
                 label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                type={showPassword ? "text" : "password"}
+                handleChange={this.handleChange}
+                handleShowPassword={this.handleShowPassword}
+                value={data.password}
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
+                onClick={this.submit}
                 className={classes.submit}
               >
                 Sign In
