@@ -10,6 +10,12 @@ const { Room } = require("../models/room");
 const { valid } = require("joi");
 const router = express.Router();
 
+router.get("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) res.status(400).send("User doesn't exists");
+  res.send(user);
+});
+
 router.post("/register", async (req, res) => {
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.details[0].message);

@@ -1,20 +1,18 @@
 import * as React from "react";
 import { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Input from "./common/input";
+import { toast, ToastContainer } from "react-toastify";
 import {
-  Avatar,
   Button,
   CssBaseline,
-  Checkbox,
   Link,
   Paper,
   Grid,
   Typography,
-  TextField,
 } from "@material-ui/core";
+import Input from "./common/input";
 import Form from "./common/form";
-
+import { register } from "../services/registerService";
 const styles = (theme) => ({
   root: {
     height: "100vh",
@@ -59,66 +57,93 @@ class Register extends Form {
     this.setState({ showPassword: showPassword });
     console.log("fsda", showPassword);
   };
+  doSubmit = async () => {
+    try {
+      const response = await register(this.state.data);
+      console.log(response);
+      localStorage.setItem("token", response.headers["x-auth-token"]);
+      window.location = "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        toast.error("User Already Registered");
+      }
+    }
+  };
   render() {
     const { data, showPassword } = this.state;
     const { classes } = this.props;
     return (
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Register
-            </Typography>
-            <form className={classes.form} noValidate>
-              <Input
-                name="name"
-                label="Name"
-                value={data.name}
-                handleChange={this.handleChange}
-              />
-              <Input
-                name="email"
-                label="Email Address"
-                value={data.email}
-                handleChange={this.handleChange}
-              />
-              <Input
-                name="password"
-                label="Password"
-                value={data.password}
-                handleChange={this.handleChange}
-                handleShowPassword={this.handleShowPassword}
-                type="password"
-              />
-              <Input
-                name="password2"
-                label="Confirm Password"
-                value={data.password2}
-                handleChange={this.handleChange}
-                type="password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
+      <div>
+        <ToastContainer />
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} className={classes.image} />
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <div className={classes.paper}>
+              <Typography component="h1" variant="h5">
+                Register
+              </Typography>
+              <form
+                className={classes.form}
+                noValidate
+                onSubmit={this.handleSubmit}
               >
-                Sign Up
-              </Button>
-              <Grid container>
-                <Grid item>
-                  <Link href="/login" variant="body2">
-                    {"Already have an account? Sign In"}
-                  </Link>
+                <Input
+                  name="name"
+                  label="Name"
+                  value={data.name}
+                  handleChange={this.handleChange}
+                />
+                <Input
+                  name="email"
+                  label="Email Address"
+                  value={data.email}
+                  handleChange={this.handleChange}
+                />
+                <Input
+                  name="password"
+                  label="Password"
+                  value={data.password}
+                  handleChange={this.handleChange}
+                  handleShowPassword={this.handleShowPassword}
+                  type={showPassword ? "text" : "password"}
+                />
+                <Input
+                  name="password2"
+                  label="Confirm Password"
+                  value={data.password2}
+                  handleChange={this.handleChange}
+                  type="password"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Sign Up
+                </Button>
+                <Grid container>
+                  <Grid item>
+                    <Link href="/login" variant="body2">
+                      {"Already have an account? Sign In"}
+                    </Link>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </form>
-          </div>
+              </form>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }
