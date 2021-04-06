@@ -1,107 +1,87 @@
-import * as React from "react";
-import { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Form from "./common/form";
+import React, { Component } from "react";
+import { Input, Button, IconButton } from "@material-ui/core";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
-const styles = (theme) => ({
-  root: {
-    height: "100vh",
-  },
-  image: {
-    backgroundImage: "url(to be addeed)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "ldight"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-});
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: "",
+    };
+  }
 
-class Room extends Form {
-  state = {
-    searchNodes: "",
+  handleChange = (e) => this.setState({ url: e.target.value });
+
+  join = () => {
+    if (this.state.url !== "") {
+      var url = this.state.url.split("/");
+      window.location.href = `/${url[url.length - 1]}`;
+    } else {
+      var url = Math.random().toString(36).substring(2, 7);
+      window.location.href = `/${url}`;
+    }
   };
+
   render() {
-    const { classes } = this.props;
     return (
-      <Grid container component="main" className={classes.root} >
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Room
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Room Name"
-                name="name"
-                autoFocus
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="content"
-                label="Room Info"
-                name="content"
-               
-                autoFocus
-              />
-              
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Create Room
-              </Button>
-            </form>
-          </div>
-        </Grid>
-      </Grid>
+      <div className="container2">
+        <div
+          style={{
+            fontSize: "14px",
+            background: "white",
+            width: "10%",
+            textAlign: "center",
+            margin: "auto",
+            marginBottom: "10px",
+          }}
+        >
+          Source code:
+          <IconButton
+            style={{ color: "black" }}
+            onClick={() =>
+              (window.location.href = "https://github.com/0x5eba/Video-Meeting")
+            }
+          >
+            <GitHubIcon />
+          </IconButton>
+        </div>
+
+        <div>
+          <h1 style={{ fontSize: "45px" }}>Video Meeting</h1>
+          <p style={{ fontWeight: "200" }}>
+            Video conference website that lets you stay in touch with all your
+            friends.
+          </p>
+        </div>
+
+        <div
+          style={{
+            background: "white",
+            width: "30%",
+            height: "auto",
+            padding: "20px",
+            minWidth: "400px",
+            textAlign: "center",
+            margin: "auto",
+            marginTop: "100px",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>
+            Start or join a meeting
+          </p>
+          <Input placeholder="URL" onChange={(e) => this.handleChange(e)} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.join}
+            style={{ margin: "20px" }}
+          >
+            Go
+          </Button>
+        </div>
+      </div>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Room);
+export default Home;
