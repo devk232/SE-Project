@@ -1,21 +1,23 @@
-import * as React from "react";
+import React from "react";
 import { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { Redirect } from "react-router-dom";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { toast, ToastContainer } from "react-toastify";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  Checkbox,
+  Link,
+  Paper,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import Form from "./common/form";
-
+import Input from "./common/input";
+import { login } from "../services/loginService";
+import { reach } from "joi-browser";
 
 const styles = (theme) => ({
   root: {
@@ -52,67 +54,94 @@ const styles = (theme) => ({
 
 class Login extends Form {
   state = {
-    searchNodes: "",
+    data: { email: "", password: "" },
+    showPassword: false,
+  };
+  handleShowPassword = () => {
+    let { showPassword } = this.state;
+    showPassword = !showPassword;
+    this.setState({ showPassword: showPassword });
+    console.log("fsda", showPassword);
+  };
+  doSubmit = async () => {
+    try {
+      const { data } = this.state;
+      const { data: jwt } = await login(data.email, data.password);
+      localStorage.setItem("token", jwt);
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : "/login";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        toast.error("Invalid Email Or Password");
+      }
+    }
   };
   render() {
     const { classes } = this.props;
+    const { data, showPassword } = this.state;
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/" />;
+    }
     return (
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
+      <React.Fragment>
+        <ToastContainer />
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} className={classes.image} />
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <div className={classes.paper}>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <form
+                className={classes.form}
+                noValidate
+                onSubmit={this.handleSubmit}
               >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+                <Input
+                  name="email"
+                  label="Email Address"
+                  handleChange={this.handleChange}
+                  value={data.email}
+                />
+                <Input
+                  name="password"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  handleChange={this.handleChange}
+                  handleShowPassword={this.handleShowPassword}
+                  value={data.password}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={this.submit}
+                  className={classes.submit}
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item>
+                    <Link href="register" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="register" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
+              </form>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </React.Fragment>
     );
   }
 }

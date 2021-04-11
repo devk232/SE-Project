@@ -6,21 +6,28 @@ const config = require("config");
 const _ = require("lodash");
 const Joi = require("joi");
 const { User, validates, validateUser } = require("../models/user");
-const {Room}=require('../models/room');
+const { Room } = require("../models/room");
 const { valid } = require("joi");
 const router = express.Router();
+
+router.get("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) res.status(400).send("User doesn't exists");
+  res.send(user);
+});
 
 router.post("/register", async (req, res) => {
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.details[0].message);
+
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).json("User already registered");
+
   user = new User({
     name: req.body.name,
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, 10),
   });
-  console.log(user);
   try {
     await user.save();
     const token = jwt.sign(
@@ -46,6 +53,7 @@ router.post("/login", async (req, res) => {
 
   const validpassword = await bcrypt.compare(req.body.password, user.password);
   if (!validpassword) return res.status(400).json("invalid email or password");
+
   const token = jwt.sign(
     { _id: user._id, isAdmin: user.isAdmin },
     config.get("jwtPrivateKey")
