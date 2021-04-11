@@ -12,6 +12,10 @@ const memberSchema = mongoose.Schema({
   name:{
       type:String,
       required:true
+  },
+  room:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"rooms"
   }
 });
 const Member = mongoose.model("Member", memberSchema);

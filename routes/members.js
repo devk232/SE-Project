@@ -9,17 +9,26 @@ const { response } = require("express");
 const router = express.Router();
 const { User, validates, validateUser } = require("../models/user");
 
-router.post("/join", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { errors } = validateUser(req.body);
-  if (errors) return res.status(400).json({});
-  const { name } = req.body;
+  if (errors) return res.status(400).json({errors:errors.array()});
+ 
   try {
+    const {name, rooms}=req.body;
+    
+    let room=await Room.findById(rooms);
+    if(room){
+       
     const newMember = new Room({
       name,
-      user: req.user._id,
+      room:req.body.room,
+      user:req.user._id
     });
-    const member = await newMember.save();
-    res.json(member);
+    room.members.push(newMember);
+    await room.save();
+    res.json(newMember);
+    }
+   
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

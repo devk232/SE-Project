@@ -6,6 +6,7 @@ const cookieParser  = require("cookie-parser")
 const cors = require('cors');
 const users = require('./routes/users');
 const rooms=require('./routes/rooms');
+const members=require('./routes/members');
 const app = express();
 
 
@@ -34,6 +35,7 @@ app.use(cors());
 
 app.use('/users', users);
 app.use('/room', rooms );
+app.use('/join', members);
 
 const PORT = process.env.PORT || 4000;
 
