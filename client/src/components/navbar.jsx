@@ -20,7 +20,7 @@ const NavBar = ({ user }) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/movies">
+          <NavLink className="nav-item nav-link" to="/room">
             Create_Room
           </NavLink>
           {/* <NavLink className="nav-item nav-link" to="/customers">
