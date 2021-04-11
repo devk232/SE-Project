@@ -3,13 +3,6 @@ const socket = require("socket.io");
 const http = require("http");
 const mongoose = require("mongoose");
 const config = require("config");
-<<<<<<< HEAD
-const cookieParser  = require("cookie-parser")
-const cors = require('cors');
-const users = require('./routes/users');
-const rooms=require('./routes/rooms');
-const members=require('./routes/members');
-=======
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const users = require("./routes/users");
@@ -17,7 +10,6 @@ const rooms = require("./routes/rooms");
 const bodyParser = require("body-parser");
 const path = require("path");
 const xss = require("xss");
->>>>>>> 83ce106a5527568b50bdc123951f2dea4847871c
 const app = express();
 var server = http.createServer(app);
 var io = require("socket.io")(server);
@@ -85,14 +77,8 @@ io.on("connection", (socket) => {
       }
     }
 
-<<<<<<< HEAD
-app.use('/users', users);
-app.use('/room', rooms );
-app.use('/join', members);
-=======
     console.log(path, connections[path]);
   });
->>>>>>> 83ce106a5527568b50bdc123951f2dea4847871c
 
   socket.on("signal", (toId, message) => {
     io.to(toId).emit("signal", socket.id, message);
