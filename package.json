@@ -4,8 +4,8 @@
   "description": "SE Project",
   "main": "index.js",
   "scripts": {
-    "start": "npm start",
-    "dev": "npm run dev"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
