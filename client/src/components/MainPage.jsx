@@ -13,16 +13,16 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { makeStyles } from "@material-ui/core/styles";
-import NavBar from './navbar';
+import NavBar from './Navbar';
 import {Link, NavLink} from 'react-router-dom';
 
 
 
 
 
-const MainPage = ({user}) => {
+const MainPage = () => {
   return (
-    <NavBar />
+    <div>WE are at Mainpage</div>
   );
 };
 

@@ -14,10 +14,10 @@ class Home extends Component {
 
   join = () => {
     if (this.state.url !== "") {
-      var url = this.state.url.split("/");
+      let url = this.state.url.split("/");
       window.location.href = `/room/${url[url.length - 1]}`;
     } else {
-      var url = Math.random().toString(36).substring(2, 7);
+      let url = Math.random().toString(36).substring(2, 7);
       window.location.href = `/room/${url}`;
     }
   };
@@ -34,17 +34,7 @@ class Home extends Component {
             margin: "auto",
             marginBottom: "10px",
           }}
-        >
-          Source code:
-          <IconButton
-            style={{ color: "black" }}
-            onClick={() =>
-              (window.location.href = "https://github.com/0x5eba/Video-Meeting")
-            }
-          >
-            <GitHubIcon />
-          </IconButton>
-        </div>
+        ></div>
 
         <div>
           <h1 style={{ fontSize: "45px" }}>Video Meeting</h1>
