@@ -29,11 +29,11 @@ const NavBar = ({ user }) => {
         Join Meeting
       </Link>
 
-      <Link onClick={onLogout} href="/logout">
+      <a onClick={onLogout} href="/logout">
         <i className="fas fa-sign-out-alt"></i>
 
         <span className="hide-sm">Logout</span>
-      </Link>
+      </a>
     </Fragment>
   );
   const guestLinks = (

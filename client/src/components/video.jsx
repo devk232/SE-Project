@@ -35,6 +35,7 @@ var elms = 0
 
 class Video extends Component {
 	constructor(props) {
+	
 		super(props)
 
 		this.localVideoref = React.createRef()
@@ -58,6 +59,7 @@ class Video extends Component {
 
 		this.getPermissions()
 	}
+	// const {user}=this.props;
 
 	getPermissions = async () => {
 		try{
