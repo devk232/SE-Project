@@ -1,0 +1,55 @@
+body{
+  margin: 0%;
+  box-sizing: border-box;
+  background-color: rgb(245, 247, 234);
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 2rem;
+  padding: 0.7rem;
+}
+img{
+  height: 25rem;
+  max-width: 25rem;
+  width: 100%;
+  border-radius: 12.5rem;
+}
+.center{
+  text-align: center;
+}
+.qw{
+  max-width: 40rem;
+  width: 100%;
+}
+
+button{
+  height: 4rem;
+  width: 10rem;
+  background-color: rgb(46, 146, 212);
+  color: rgb(253, 251, 251);
+  font-weight: bold;
+  font-size: large;
+  border-radius: 8px;
+  border:none;
+}
+button:hover{
+  background-color: rgb(16, 78, 150);
+}
+h1{
+  font-family: 'Martel', serif;
+  font-size: 2.7rem;
+}
+h2{
+  
+  font-family: 'Goudy Bookletter 1911', serif;
+  color: rgb(20, 39, 21);
+  font-weight:lighter;
+}
+.main{
+  font-size: 2.3rem;
+  color: darkblue;
+  font-weight: bolder;
+}
