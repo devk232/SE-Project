@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -20,10 +20,31 @@ import {Link, NavLink} from 'react-router-dom';
 
 
 
+
 const MainPage = () => {
   return (
-    <div>WE are at Mainpage</div>
-  );
+    <div>
+      <Fragment>
+      <div className="row">
+		<div className="center">
+			<img src="https://cpb-us-w2.wpmucdn.com/sites.udel.edu/dist/b/344/files/2020/04/video-conferencing-illustration.jpg" alt="img"></img>
+			<h2 className="main">Best in class experience for you here.</h2>
+			<div className="qw">
+				<h2 >Precisely engineered service to provide everyone the features of audio visual meeting along with one to one messaging facility.
+					Keeping you securely connected wherever you are.
+				</h2>
+			</div>
+
+		</div>
+		<div className="center">
+			<h1>Now no one is far. Connecting  all.</h1>
+			<button>Join Meeting</button>
+			<button>Host Meeting</button>
+		</div>
+	</div>
+    </Fragment>
+    </div>
+  )
 };
 
 export default MainPage;
