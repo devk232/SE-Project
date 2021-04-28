@@ -58,7 +58,23 @@ router.post("/login", async (req, res) => {
     { _id: user._id, isAdmin: user.isAdmin },
     config.get("jwtPrivateKey")
   );
+  res.cookie("token", token, {
+    expire: new Date() + 60 * 60 * 24 * 30,
+  });
   res.header("x-auth-token").send(token);
 });
+router.get("/logout", async(req, res)=>{
+    
+    try {
+      res.clearCookie("token");
+      return res.json({
+        msg: "User signout successfully",
+      });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+      
+
+})
 
 module.exports = router;

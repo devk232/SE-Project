@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
 
-axios.interceptors.response.use(null, (error) => {
+axios.interceptors.response.use(null,  (error) => {
   const expectedError =
     error.response &&
     error.response.status >= 400 &&
