@@ -40,7 +40,7 @@ class Home extends Component {
           <IconButton
             style={{ color: "black" }}
             onClick={() =>
-              (window.location.href = "https://github.com/0x5eba/Video-Meeting")
+              (window.location.href = "https://github.com/devk232/SE-Project")
             }
           >
             <GitHubIcon />
