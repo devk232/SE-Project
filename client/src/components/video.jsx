@@ -440,7 +440,7 @@ class Video extends Component {
 		// return matchChrome !== null || matchFirefox !== null
 		return matchChrome !== null
 	}
-
+	
 	render() {
 		if(this.isChrome() === false){
 			return (

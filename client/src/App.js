@@ -39,12 +39,11 @@ const App = () => {
           <Navbar user={user} />
           <div className="container">
             <Switch>
-              <Route path="/room" exact component={Home} />
-              <Route path="/room/:url" component={Video} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/" component={MainPage}/>
-             
+            <Route path="/room/:url" render={(props) => <Video {...props} user={user} />} />
+            <Route path="/room" render={(props) => <Home {...props} user={user} />} />   
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/" component={MainPage}/> 
             </Switch>
           </div>
         </Fragment>
