@@ -1,25 +1,37 @@
 import React, {Fragment} from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import axios from 'axios';
 const NavBar = ({user}) => {
  console.log(user);
  let {isAuthenticated}=user;
  console.log(isAuthenticated);
- const onLogout=()=>{
-       isAuthenticated=false;
-       localStorage.removeItem("token");
-       window.location='/';
+ const onLogout=async(req, res)=>{
+       try {
+          isAuthenticated = false;
+          await axios.get("/logout");
+          res.redirect("/");
+         
+       } catch (err) {
+         console.log("error occurred! ", err);
+       }
  }
 
  const authLinks = (
    <Fragment>
-     <li style={{ fontSize: "1.5rem" }}>
+     <div style={{ fontSize: "1.5rem" }}>
        {" "}
        Hello {isAuthenticated && user.user.data.name}{" "}
-     </li>
+     </div>
+     <div>
+       {" "}
+       <Link style={{ fontSize: "1.5rem" }} to="/room">
+         Join Meeting
+       </Link>
+     </div>
      <a onClick={onLogout} href="#!">
        <i className="fas fa-sign-out-alt"></i>
-       
+
        <span className="hide-sm">Logout</span>
      </a>
    </Fragment>
