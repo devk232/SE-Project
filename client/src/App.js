@@ -13,7 +13,6 @@ import http from "./services/httpService";
 import { Nav } from "reactstrap";
 import { APIEndPoint } from "./config.json";
 import { Fragment } from "react";
-import c from "config";
 import Logout from './components/Logout';
 import { startCase } from "lodash";
 
@@ -26,7 +25,7 @@ const App = () => {
        const jwt=localStorage.getItem("token");
        const user_jwt = jwtDecode(jwt);
       const USER = await http.get(
-        `http://localhost:4000/users/${user_jwt._id}`
+        `http://localhost:4001/users/${user_jwt._id}`
       );
       setUser({user:USER, isAuthenticated:true});
        };
