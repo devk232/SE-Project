@@ -1,7 +1,6 @@
 # SE-Project
 
-SE Project 
-
+Precisely engineered service to provide everyone the features of audio visual meeting along with one to one messaging facility. Keeping you securely connected wherever you are.
 
 
 ## Setting up on a local machine 
@@ -25,7 +24,7 @@ npm install
 - Run the following command:
 
 ```
-npm run dev
+node index.js
 ```
 -
 ### Setting up client

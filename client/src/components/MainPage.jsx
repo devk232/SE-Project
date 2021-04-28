@@ -15,11 +15,7 @@ import Tab from "@material-ui/core/Tab";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from './Navbar';
 import {Link, NavLink} from 'react-router-dom';
-
-
-
-
-
+import { v4 as uuidv4 } from 'uuid';
 
 const MainPage = () => {
   return (
@@ -42,8 +38,8 @@ const MainPage = () => {
           </div>
           <div className="center">
             <h1>Now no one is far. Connecting all.</h1>
-            <button>Join Meeting</button>
-            <button>Host Meeting</button>
+            <button><NavLink to="/room" style={{color: "white"}}>Join Meeting</NavLink></button>
+            <button href={"/room/" + uuidv4()}>Host Meeting</button>
           </div>
         </div>
       

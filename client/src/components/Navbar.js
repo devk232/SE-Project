@@ -1,58 +1,42 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
 const NavBar = ({ user }) => {
   console.log(user);
   let { isAuthenticated } = user;
-  console.log(isAuthenticated);
-  const onLogout = async (req, res) => {
-    try {
-      isAuthenticated = false;
-      localStorage.removeItem("token");
-      isAuthenticated = false;
-      res.redirect("/");
-    } catch (err) {
-      console.log("error occurred! ", err);
-    }
-  };
-
   const authLinks = (
     <Fragment>
-      <li style={{ fontSize: "1.5rem" }}>
-        {" "}
+      <li className="pt-2">
         Hello {isAuthenticated && user.user.data.name}{" "}
       </li>
-
-      <Link style={{ fontSize: "1.5rem" }} to="/room">
+      <Link to="/room">
         Join Meeting
       </Link>
-
-      <a onClick={onLogout} href="/logout">
+      <Link to="/logout">
         <i className="fas fa-sign-out-alt"></i>
-
-        <span className="hide-sm">Logout</span>
-      </a>
+        Logout
+      </Link>
     </Fragment>
   );
   const guestLinks = (
     <Fragment>
       <li>
-        <Link to="/register">Register</Link>
+        <Link to="/register" className="mb-1">Register</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>{" "}
+        <Link to="/login" className="mb-1">Login</Link>{" "}
       </li>
     </Fragment>
   );
 
   return (
-    <div className="navbar bg-primary">
-      <h1>
+    <div className="navbar navbar bg-primary p-1 mb-1">
+      <h3>
         <i className="fas fa-video"></i>
         WeMeet
-      </h1>
+      </h3>
       <ul>{isAuthenticated ? authLinks : guestLinks}</ul>
     </div>
   );

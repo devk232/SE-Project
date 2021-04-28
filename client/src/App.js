@@ -10,12 +10,13 @@ import MainPage from "./components/MainPage";
 import Video from "./components/video";
 import Home from "./components/room";
 import http from "./services/httpService";
-import { Nav } from "reactstrap";
 import { APIEndPoint } from "./config.json";
 import { Fragment } from "react";
 import Logout from './components/Logout';
-import { startCase } from "lodash";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import "bootstrap/dist/css/bootstrap.css";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const App = () => {
   const [user, setUser] = useState({
@@ -40,11 +41,12 @@ const App = () => {
           <Navbar user={user} />
           <div className="container">
             <Switch>
-            <ProtectedRoute path="/room/:url" render={(props) => <Video {...props} user={user} />} />
-            <ProtectedRoute path="/room" render={(props) => <Home {...props} user={user} />} />   
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/" component={MainPage}/> 
+              <ProtectedRoute path="/room/:url" render={(props) => <Video {...props} user={user} />} />
+              <ProtectedRoute path="/room" render={(props) => <Home {...props} user={user} />} />   
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/logout" component={LogOut} />
+              <Route path="/" component={MainPage}/> 
             </Switch>
           </div>
         </Fragment>

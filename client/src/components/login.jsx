@@ -4,6 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Avatar,
   Button,
@@ -14,6 +16,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import "../App.css"
 import Form from "./common/form";
 import Input from "./common/input";
 import { login } from "../services/loginService";
@@ -24,7 +27,7 @@ const styles = (theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(to be added)",
+    backgroundImage: "url(https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "ldight"
