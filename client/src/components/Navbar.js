@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import axios from 'axios';
+
 const NavBar = ({user}) => {
  console.log(user);
  let {isAuthenticated}=user;

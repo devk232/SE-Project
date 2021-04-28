@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Input, Button, IconButton } from "@material-ui/core";
+import "./Home.css";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 class Home extends Component {
@@ -9,7 +10,6 @@ class Home extends Component {
       url: "",
     };
   }
-
   handleChange = (e) => this.setState({ url: e.target.value });
 
   join = () => {
@@ -34,7 +34,17 @@ class Home extends Component {
             margin: "auto",
             marginBottom: "10px",
           }}
-        ></div>
+        >
+          Source code:
+          <IconButton
+            style={{ color: "black" }}
+            onClick={() =>
+              (window.location.href = "https://github.com/devk232/SE-Project")
+            }
+          >
+            <GitHubIcon />
+          </IconButton>
+        </div>
 
         <div>
           <h1 style={{ fontSize: "45px" }}>Video Meeting</h1>
