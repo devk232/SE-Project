@@ -15,6 +15,7 @@ import { APIEndPoint } from "./config.json";
 import { Fragment } from "react";
 import Logout from './components/Logout';
 import { startCase } from "lodash";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 const App = () => {
   const [user, setUser] = useState({
@@ -39,8 +40,8 @@ const App = () => {
           <Navbar user={user} />
           <div className="container">
             <Switch>
-            <Route path="/room/:url" render={(props) => <Video {...props} user={user} />} />
-            <Route path="/room" render={(props) => <Home {...props} user={user} />} />   
+            <ProtectedRoute path="/room/:url" render={(props) => <Video {...props} user={user} />} />
+            <ProtectedRoute path="/room" render={(props) => <Home {...props} user={user} />} />   
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/" component={MainPage}/> 
