@@ -9,7 +9,8 @@ const NavBar = ({user}) => {
  const onLogout=async(req, res)=>{
        try {
           isAuthenticated = false;
-          await axios.get("/logout");
+          localStorage.removeItem("token");
+          isAuthenticated=false;
           res.redirect("/");
          
        } catch (err) {
@@ -19,17 +20,17 @@ const NavBar = ({user}) => {
 
  const authLinks = (
    <Fragment>
-     <div style={{ fontSize: "1.5rem" }}>
+     <li style={{ fontSize: "1.5rem" }}>
        {" "}
        Hello {isAuthenticated && user.user.data.name}{" "}
-     </div>
-     <div>
-       {" "}
+     </li>
+     
+      
        <Link style={{ fontSize: "1.5rem" }} to="/room">
          Join Meeting
        </Link>
-     </div>
-     <a onClick={onLogout} href="#!">
+     
+     <a onClick={onLogout} href="/logout">
        <i className="fas fa-sign-out-alt"></i>
 
        <span className="hide-sm">Logout</span>

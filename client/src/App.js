@@ -14,6 +14,7 @@ import Home from "./components/room";
 import http from "./services/httpService";
 import { Nav } from "reactstrap";
 import { Fragment } from "react";
+import Logout from './components/Logout';
 
 
 
@@ -46,6 +47,7 @@ const  App=()=>{
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/" component={MainPage}/>
+             
             </Switch>
           </div>
         </Fragment>
