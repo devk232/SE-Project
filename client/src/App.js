@@ -15,6 +15,7 @@ import http from "./services/httpService";
 import { Nav } from "reactstrap";
 import { Fragment } from "react";
 import Logout from './components/Logout';
+import { startCase } from "lodash";
 
 
 
@@ -22,18 +23,17 @@ const  App=()=>{
   const [user, setUser]=useState({
     isAuthenticated:false,
   });
-  useEffect(()=>{
-       const Start=async()=>{
-           const jwt = localStorage.getItem("token");
-      const user_jwt = jwtDecode(jwt);
+  if(localStorage.length>0){
+     const Start=async()=>{
+       const jwt=localStorage.getItem("token");
+       const user_jwt = jwtDecode(jwt);
       const USER = await http.get(
         `http://localhost:4000/users/${user_jwt._id}`
       );
       setUser({user:USER, isAuthenticated:true});
        };
-       Start();
-  
-  },[]);
+        Start();
+     }
 
   
     return (
