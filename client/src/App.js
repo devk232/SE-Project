@@ -14,6 +14,7 @@ import { Nav } from "reactstrap";
 import { APIEndPoint } from "./config.json";
 import { Fragment } from "react";
 import c from "config";
+import Logout from './components/Logout';
 
 const App = () => {
   const [user, setUser] = useState({

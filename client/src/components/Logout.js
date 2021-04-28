@@ -2,7 +2,18 @@
 import React, { useEffect, useState, Component } from "react";
 import { Link } from "react-router-dom";
 
-const Logout = () => {
-  return null;
-};
+const Logout=()=> {
+     
+    useEffect(()=>{
+
+       const logout=()=>{
+            localStorage.removeItem("token");
+            window.location='/';
+       }
+    })
+  
+  return (
+    null
+  )
+}
 export default Logout;

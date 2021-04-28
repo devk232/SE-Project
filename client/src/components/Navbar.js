@@ -1,21 +1,37 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import http from "../services/httpService";
+import PropTypes from 'prop-types';
+import axios from 'axios';
+const NavBar = ({user}) => {
+ console.log(user);
+ let {isAuthenticated}=user;
+ console.log(isAuthenticated);
+ const onLogout=async(req, res)=>{
+       try {
+          isAuthenticated = false;
+          localStorage.removeItem("token");
+          isAuthenticated=false;
+          res.redirect("/");
+         
+       } catch (err) {
+         console.log("error occurred! ", err);
+       }
+ }
 
-const NavBar = ({ user }) => {
-  console.log(user);
-  let { isAuthenticated } = user;
-  console.log(isAuthenticated);
-  const onLogout = async (req, res) => {
-    try {
-      isAuthenticated = false;
-      await http.get("/logout");
-      res.redirect("/");
-    } catch (err) {
-      console.log("error occurred! ", err);
-    }
-  };
+ const authLinks = (
+   <Fragment>
+     <li style={{ fontSize: "1.5rem" }}>
+       {" "}
+       Hello {isAuthenticated && user.user.data.name}{" "}
+     </li>
+     
+      
+       <Link style={{ fontSize: "1.5rem" }} to="/room">
+         Join Meeting
+       </Link>
+     
+     <a onClick={onLogout} href="/logout">
+       <i className="fas fa-sign-out-alt"></i>
 
   const authLinks = (
     <Fragment>
