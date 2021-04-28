@@ -13,8 +13,7 @@ import http from "./services/httpService";
 import { Nav } from "reactstrap";
 import { APIEndPoint } from "./config.json";
 import { Fragment } from "react";
-import c from "config";
-import Logout from './components/Logout';
+import Logout from "./components/Logout";
 
 const App = () => {
   const [user, setUser] = useState({
@@ -22,11 +21,15 @@ const App = () => {
   });
   useEffect(() => {
     const Start = async () => {
-      const jwt = localStorage.getItem("token");
-      const user_jwt = jwtDecode(jwt);
-      console.log(user_jwt);
-      const USER = await http.get(`${APIEndPoint}/users/${user_jwt._id}`);
-      setUser({ user: USER, isAuthenticated: true });
+      try {
+        const jwt = localStorage.getItem("token");
+        const user_jwt = jwtDecode(jwt);
+        console.log(user_jwt);
+        const USER = await http.get(`${APIEndPoint}/users/${user_jwt._id}`);
+        setUser({ user: USER, isAuthenticated: true });
+      } catch (ex) {
+        console.log(ex);
+      }
     };
     Start();
   }, []);
